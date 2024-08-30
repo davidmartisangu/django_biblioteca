@@ -2,6 +2,24 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from books.forms import EditorialModelFormCreate, EditorialCreate
 from books.models import Editorial
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+
+class EditorialList (ListView):
+    model = Editorial
+    template_name = "editoriales/editoriales_ccbv.html"
+    context_object_name = "editoriales" #para que en el html cuando el for de editorial sepa que es editoriales
+
+class EditorialDetail(DetailView):
+    model = Editorial
+    template_name = "editoriales/editoriales_detail_ccbv.html"
+    context_object_name = "editoriales"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["titulo"] = "probando context"
+        return context
+    
 
 def editoriales_view(request):
 
