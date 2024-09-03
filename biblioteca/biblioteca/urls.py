@@ -17,7 +17,6 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from django.conf.urls import include
 from debug_toolbar.toolbar import debug_toolbar_urls
 
 from .views import home_view, contacto_view, search_view
@@ -25,7 +24,10 @@ from .views import home_view, contacto_view, search_view
 urlpatterns = [
     # path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path("",home_view, name="home"),     #clase 13
-    path("", include("books.urls", namespace="books")),
+    path("editorial/",include('books.urls.editorial_url', namespace="editorial")),
+    path("autor/",include('books.urls.autor_url', namespace="autor")),
+    path("libro/",include('books.urls.libro_url', namespace="libro")),
+
     path("buscar/",search_view, name="search"),     #clase 20
     path("contacto/",contacto_view, name="contacto"),
     path("admin/", admin.site.urls),

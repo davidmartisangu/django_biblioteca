@@ -1,8 +1,8 @@
 source env/bin/activate
 
-python manage.py runserver
-python manage.py makemigrations
-python manage.py migrate
+python manage.py runserver  #-> run
+python manage.py makemigrations  #-> make
+python manage.py migrate  #-> migrate
 
 python manage.py shell
 
