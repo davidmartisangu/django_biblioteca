@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Modelo para Editoriales
 class Editorial(models.Model):
@@ -12,6 +13,7 @@ class Editorial(models.Model):
     email = models.EmailField()
     sitio_web = models.URLField(null=True, blank=True)
     fecha_fundacion = models.DateField()
+    created_by = models.ForeignKey(User, null=True, blank= True, on_delete=models.SET_NULL)  #on_delete hace referencia que sí se borra el usuario este campo quede vacio
 
     def __str__(self):
         return self.nombre
