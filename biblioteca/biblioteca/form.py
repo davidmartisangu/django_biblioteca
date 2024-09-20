@@ -13,6 +13,6 @@ class ContactForm(forms.Form):
     
     def clean_email(self):
         email = self.cleaned_data.get("email")
-        if "prueba" in email:
+        if "probando" in email:
             raise forms.ValidationError("El email no parece ser correcto")
         return email
