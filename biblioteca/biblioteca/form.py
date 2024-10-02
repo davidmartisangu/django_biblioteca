@@ -1,18 +1,19 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 class ContactForm(forms.Form):
-    nombre = forms.CharField(max_length=140, label="Nombre")
-    email = forms.EmailField(label="Email")
-    comentario = forms.CharField(max_length=1000, label="Comentario", widget=forms.Textarea)
+    nombre = forms.CharField(max_length=140, label=_("Nombre"))
+    email = forms.EmailField(label=_("Email"))
+    comentario = forms.CharField(max_length=1000, label=_("Comentario"), widget=forms.Textarea)
 
     def clean_nombre(self):
         nombre = self.cleaned_data.get("nombre")
         if len(nombre) < 5:
-            raise forms.ValidationError("El nombre debe tener al menos 5 caracteres")
+            raise forms.ValidationError(_("El nombre debe tener al menos 5 caracteres"))
         return nombre
     
     def clean_email(self):
         email = self.cleaned_data.get("email")
         if "probando" in email:
-            raise forms.ValidationError("El email no parece ser correcto")
+            raise forms.ValidationError(_("El email no parece ser correcto"))
         return email

@@ -1,7 +1,8 @@
 {% extends "general/layout.html" %}
+{% load i18n %}
 
 {% block head_title %}Página Contacto{% endblock  %}
-{% block page_title %}Esto es la página de contacto{% endblock  %}
+{% block page_title %}{% trans 'Esto es la página de contacto'%}{% endblock  %}
 
 {% block page_content %}
     <form action="" method="POST">
@@ -20,6 +21,6 @@
             <label for="comentario">Comentario</label>
             <textarea name="comentario" id="comentario" required></textarea>
         </div> {% endcomment %}
-        <button>Enviar</button>
+        <button>{% trans 'Enviar'%}</button>
     </form>
 {% endblock page_content %}

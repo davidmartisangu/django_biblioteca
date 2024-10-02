@@ -3,6 +3,10 @@ from books.models import Autor, Libro, Editorial
 from books.forms import SearchForm
 from .form import ContactForm
 from django.contrib import messages
+from django.utils.translation import gettext as _
+from django.views.generic import View
+from django.http import HttpResponseRedirect
+from django.utils import translation
 
 #Vistas generales de la aplicación
 
@@ -88,13 +92,14 @@ def contacto_view(request):
             nombre = formulario.cleaned_data['nombre']
             email = formulario.cleaned_data['email']
             comentario = formulario.cleaned_data['comentario']
-            print(f'se ha enviado un correo a {nombre} del email {email} con el texto {comentario}')
+            mensaje =_('se ha enviado un correo a {nombre} del email {email} con el texto {comentario}')
+            print(mensaje)
 
             context = {
                 'formulario': formulario,
             }
 
-            messages.info(request, "El correo se ha enviado correctamente")
+            messages.info(request, _("El correo se ha enviado correctamente"))
 
             return render(request, "general/contacto.html", context)
         
@@ -109,3 +114,17 @@ def contacto_view(request):
             "formulario": formulario
         }
     return render(request, "general/contacto.html", context)
+
+class SetLanguageView(View):
+    def post(self, request, *args, ** kwargs):
+        # Obtenemos el idioma seleccionado del formulario
+        language = request.POST.get('language', None)
+
+        # Si se seleccionó un idioma, lo activamos
+        if language:
+            translation.activate(language)
+            request.session[translation.LANGUAGE_SESSION_KEY] = language
+
+        # Redirigimos a la página desde donde se hizo la petición
+        next_url = request.POST.get('next', '/')
+        return HttpResponseRedirect(next_url)
