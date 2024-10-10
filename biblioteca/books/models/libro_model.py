@@ -23,6 +23,7 @@ class Libro(models.Model):
     autores = models.ManyToManyField(Autor)
     genero = models.CharField(max_length=100,blank=True, null=True)
     precio = models.DecimalField(max_digits=10, decimal_places=2,blank=True, null=True)
+    is_out_of_stock = models.BooleanField("Está fuera de stock", default=False)
     created_by=models.ForeignKey(User,null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
